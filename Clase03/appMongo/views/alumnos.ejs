@@ -2,6 +2,12 @@
 <html>
 <head>
 	<title></title>
+	<style>
+	a.activo {
+		font-size:25px;
+		font-weight: bold
+	}
+	</style>
 </head>
 <body>
 
@@ -19,6 +25,19 @@
 			</tr>
 		<% }) %>
 	</table>
+
+	<% for(var ind=0; ind<cantidadPaginas; ind++){ %>
+		<a href="/<%= ind+1 %>" class="<% if(ind+1 == pagina) { %> <%= 'activo' %> <% } %>"> <%= ind+1 %></a>
+	<% } %>
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

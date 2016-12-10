@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	var socket = io()
+	socket.on("tweet recibido", function(tweet){
+		console.log(tweet)
+	})
+	</script>
+
+</body>
+</html>

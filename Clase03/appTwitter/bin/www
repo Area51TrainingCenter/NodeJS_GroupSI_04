@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('appsocket:server');
+var debug = require('debug')('apptwitter:server');
 var http = require('http');
 
 /**
@@ -26,26 +26,34 @@ var server = http.createServer(app);
  */
 
 var io = require("socket.io")(server.listen(port))
-
 server.on('error', onError);
 server.on('listening', onListening);
 
 io.on("connection", function(socket){
-  console.log("Usuario conectado")
 
-  socket.on("mensaje al servidor", function(mensaje){
-      console.log("Mensaje recibido del cliente")
-      socket.emit("respuesta", "¿qué quieres?")
-  })
-
-  socket.on("trazo", function(x0,y0,x1,y1){
-    io.sockets.emit("trazar", x0,y0,x1,y1)
-  })
-
-  socket.on("borrar", function(){
-    io.sockets.emit("borrar todo")
-  })
+var Twitter = require('node-tweet-stream')
+t = new Twitter({
+    consumer_key: 'dpxyyIGpnUyBZ5TY6LsBKGQmL',
+    consumer_secret: 'G4qbX00k2Boecry2UvL64uNYoiipwk1a6DrtTTqPzMUWJgQguO',
+    token: '108405512-Z4xswxNB62kj58LKnuJnnjbUQOKnFIF4KqRPdXZu',
+    token_secret: 'LluXDR8z4zE4PlxhGugfUI5ngLg1Wvdq6uNtLm4QbHFA4'
 })
+
+t.on('tweet', function (tweet) {
+  console.log('tweet received', tweet)
+  socket.emit("tweet recibido", tweet)
+})
+ 
+t.on('error', function (err) {
+  console.log('Oh no')
+})
+
+t.track('nodejs')
+t.track('javascript')
+
+
+})
+
 
 
 /**

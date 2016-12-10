@@ -12,6 +12,7 @@
 </head>
 <body>
 
+<button id="btnBorrar">Borrar</button>
 <canvas id="canvas1" width="600" height="600"></canvas>
 <canvas id="canvas2" width="600" height="600"></canvas>
 
@@ -30,6 +31,10 @@
 		contexto2.lineTo(x1,y1)
 		contexto2.stroke()
 		contexto2.closePath()
+	})
+
+	socket.on("borrar todo", function(){
+		contexto2.clearRect(0,0,600,600)
 	})
 
 	var dibujando = false
@@ -70,6 +75,14 @@
 
 		puntoInicio.x = e.clientX
 		puntoInicio.y = e.clientY
+	})
+
+	var btnBorrar = document.getElementById("btnBorrar")
+	btnBorrar.addEventListener("click", function(){
+		contexto1.clearRect(0,0,600,600)
+		contexto2.clearRect(0,0,600,600)
+
+		socket.emit("borrar")
 	})
 
 

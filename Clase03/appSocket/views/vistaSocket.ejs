@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+	canvas {
+		background-color: black
+	}
+	</style>
+</head>
+<body>
+
+<canvas id="canvas1" width="600" height="600"></canvas>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+	let socket = io()
+	socket.emit("mensaje al servidor", "Hola")
+	socket.on("respuesta", function(msg){
+		console.log(msg)
+	})
+
+	let dibujando = false
+
+	let canvas1 = document.getElementById("canvas1")
+	let contexto1 = canvas1.getContext("2d")
+	contexto1.lineWidth = 2
+	contexto1.strokeStyle = "red"
+
+	let puntoInicio = {}
+
+	canvas1.addEventListener("mousedown", function(e){
+		puntoInicio.x = e.clientX
+		puntoInicio.y = e.clientY
+		dibujando = true
+	})
+
+	canvas1.addEventListener("mouseup", function(e){
+		puntoInicio = {}
+		dibujando = false
+	})
+
+	canvas1.addEventListener("mousemove", function(e){
+		if(!dibujando) return
+
+		contexto1.beginPath()
+		contexto1.moveTo(puntoInicio.x, puntoInicio.y)
+		contexto1.lineTo(e.clientX, e.clientY)
+		contexto1.stroke()
+		contexto1.closePath()
+		puntoInicio.x = e.clientX
+		puntoInicio.y = e.clientY
+	})
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<table>
+		<tr>
+			<th>Indice</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+		</tr>
+		<% registros.forEach(function(reg, ind) { %>
+			<tr>
+				<td><%= ind %></td>
+				<td><%= reg.nombre %></td>
+				<td><%= reg.apellido %></td>
+			</tr>
+		<% }) %>
+	</table>
+
+</body>
+</html>

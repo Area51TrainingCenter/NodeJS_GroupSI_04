@@ -4,31 +4,47 @@
 	<title></title>
 	<style>
 	canvas {
-		background-color: black
+		background-color: black;
+		float: left;
+		margin-right:10px;
 	}
 	</style>
 </head>
 <body>
 
 <canvas id="canvas1" width="600" height="600"></canvas>
+<canvas id="canvas2" width="600" height="600"></canvas>
 
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
-	let socket = io()
+	var socket = io()
 	socket.emit("mensaje al servidor", "Hola")
 	socket.on("respuesta", function(msg){
 		console.log(msg)
 	})
 
-	let dibujando = false
+	socket.on("trazar", function(x0,y0,x1,y1){
+		contexto2.beginPath()
+		contexto2.moveTo(x0,y0)
+		contexto2.lineTo(x1,y1)
+		contexto2.stroke()
+		contexto2.closePath()
+	})
 
-	let canvas1 = document.getElementById("canvas1")
-	let contexto1 = canvas1.getContext("2d")
+	var dibujando = false
+
+	var canvas1 = document.getElementById("canvas1")
+	var contexto1 = canvas1.getContext("2d")
 	contexto1.lineWidth = 2
 	contexto1.strokeStyle = "red"
 
-	let puntoInicio = {}
+	var canvas2 = document.getElementById("canvas2")
+	var contexto2 = canvas2.getContext("2d")
+	contexto2.lineWidth = 2
+	contexto2.strokeStyle = "red"
+
+	var puntoInicio = {}
 
 	canvas1.addEventListener("mousedown", function(e){
 		puntoInicio.x = e.clientX
@@ -49,6 +65,9 @@
 		contexto1.lineTo(e.clientX, e.clientY)
 		contexto1.stroke()
 		contexto1.closePath()
+
+		socket.emit("trazo", puntoInicio.x, puntoInicio.y, e.clientX, e.clientY)
+
 		puntoInicio.x = e.clientX
 		puntoInicio.y = e.clientY
 	})

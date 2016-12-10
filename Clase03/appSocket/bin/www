@@ -37,6 +37,10 @@ io.on("connection", function(socket){
       console.log("Mensaje recibido del cliente")
       socket.emit("respuesta", "¿qué quieres?")
   })
+
+  socket.on("trazo", function(x0,y0,x1,y1){
+    io.sockets.emit("trazar", x0,y0,x1,y1)
+  })
 })
 
 

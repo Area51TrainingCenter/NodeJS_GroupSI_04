@@ -7,11 +7,8 @@ var bodyParser = require('body-parser');
 
 var cookieSession = require("cookie-session")
 
-var mongodb = require("mongodb"),
-	db = require("monk")("localhost/bdredes")
+var passport = require("passport")
 
-var passport = require("passport"),
-	passportFacebook = require("passport-facebook").Strategy
 
 var index = require('./routes/index');
 var redes = require('./routes/redes');
@@ -40,46 +37,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({secret: "abcde"}))
 
-passport.use(
-	new passportFacebook(
-		{
-			clientID: "369669430050138",
-			clientSecret: "33f992823cfb148a7f2d13ecf261c618",
-			callbackURL: "http://localhost:3000/redes/facebook/callback",
-			profileFields: ["id", "displayName", "photos"]
-		},
-		function(accessToken, refreshToken, profile, done)
-			var Usuarios = db.get("usuarios")
 
-			Usuarios
-				.find({idRedes: profile.id})
-				.then(function(registros){
-					if(registros.length == 0) {
-						var datos = {
-							idRedes: profile.id,
-							nombre: profile.displayName,
-							foto: profile.photos[0].value,
-							proveedor: profile.provider
-						}
-
-						Usuarios
-							.insert(datos)
-							.then(function(registros){
-								return done(null, datos)
-							})
-							.catch(function(err){
-								return done(err)
-							})
-					} else {
-						return done(null, registros[0])
-					}
-				})
-				.catch(function(err){
-					return done(err)
-				})
-		}
-	)
-)
+// configPassport(passport)
+require("./modulos/passport")(passport)
 
 
 app.use(passport.initialize())

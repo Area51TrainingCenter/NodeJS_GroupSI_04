@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var cookieSession = require("cookie-session")
 
 var mongodb = require("mongodb"),
-	monk = require("monk")("localhost/bdredes")
+	db = require("monk")("localhost/bdredes")
 
 var passport = require("passport"),
 	passportFacebook = require("passport-facebook").Strategy
@@ -48,11 +48,35 @@ passport.use(
 			callbackURL: "http://localhost:3000/redes/facebook/callback",
 			profileFields: ["id", "displayName", "photos"]
 		},
-		function(accessToken, refreshToken, profile, done){
-			console.log("middleware")
-			console.log(profile)
+		function(accessToken, refreshToken, profile, done)
+			var Usuarios = db.get("usuarios")
 
-			return done(null, {id:10})
+			Usuarios
+				.find({idRedes: profile.id})
+				.then(function(registros){
+					if(registros.length == 0) {
+						var datos = {
+							idRedes: profile.id,
+							nombre: profile.displayName,
+							foto: profile.photos[0].value,
+							proveedor: profile.provider
+						}
+
+						Usuarios
+							.insert(datos)
+							.then(function(registros){
+								return done(null, datos)
+							})
+							.catch(function(err){
+								return done(err)
+							})
+					} else {
+						return done(null, registros[0])
+					}
+				})
+				.catch(function(err){
+					return done(err)
+				})
 		}
 	)
 )

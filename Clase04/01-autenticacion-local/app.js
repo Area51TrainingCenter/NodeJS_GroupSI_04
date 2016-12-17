@@ -10,17 +10,33 @@ var cookieSession = require("cookie-session")
 var passport = require("passport"),
 	passportLocal = require("passport-local")
 
+var mongodb = require("mongodb"),
+	db = require("monk")("localhost/mibd")
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
 
 passport.serializeUser(function(usuario, done){
-	done(null, usuario.id)
+	done(null, usuario._id)
 })
 
-passport.deserializeUser(function(usuario, done){
-	done(null, {id: 50, nombre:"sergio"})
+passport.deserializeUser(function(usuarioId, done){
+	var Usuarios = db.get("usuarios")
+
+	Usuarios
+		.find({_id: usuarioId})
+		.then(function(registros){
+			if(registros.length==0) {
+				done(null, false)
+			} else {
+				done(null, registros[0])
+			}
+		})
+		.catch(function(err){
+			done(err)
+		})
 })
 
 passport.use(
@@ -30,12 +46,20 @@ passport.use(
 			passwordField: "contrasena"
 		},
 		function(usuario, contrasena, done){
+			var Usuarios = db.get("usuarios")
 
-			if(usuario=="sergio" && contrasena=="123") {
-				return done(null, {id: 50, usuario: usuario})
-			} else {
-				return done(null, false)
-			}
+			Usuarios
+				.find({usuario: usuario, contrasena:contrasena})
+				.then(function(registros){
+					if(registros.length==0) {
+						 done(null, false)
+					} else {
+					 done(null, registros[0])
+					}
+				})
+				.catch(function(err){
+					return done(err)
+				})
 			// done(err)
 			// done(null, false)
 			// done(null, {id: 50, nombre: "Sergio"})

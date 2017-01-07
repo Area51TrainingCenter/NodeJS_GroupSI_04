@@ -69,6 +69,16 @@ module.exports.routes = {
   'delete /duenos/:id': {
     controller: "DuenosController",
     action: "eliminar"
+  },
+
+  'get /duenos/:pagina/:tamano': {
+    controller: "DuenosController",
+    action: "listarPaginado"
+  },
+
+  'get /duenoscantidad': {
+    controller: "DuenosController",
+    action: "contar"
   }
 
 

@@ -79,6 +79,35 @@ module.exports = {
 			.catch(function(err){
 				res.serverError(err)
 			})
+	},
+
+	listarPaginado: function(req, res, next) {
+		var paginacion = {
+			page: req.params.pagina,
+			limit: req.params.tamano
+		}
+
+		Duenos
+			.find()
+			.paginate(paginacion)
+			.then(function(registros){
+				res.json(registros)
+			})
+			.catch(function(err){
+				res.serverError(err)
+			})
+	},
+
+	contar: function(req, res, next) {
+		console.log("contar");
+		Duenos
+			.count()
+			.then(function(cantidad){
+				res.json(cantidad)
+			})
+			.catch(function(err){
+				res.serverError(err)
+			})
 	}
 
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title></title>
+	<style>
+
+	[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	  display: none !important;
+	}
+	</style>
+</head>
+<body ng-controller="controlador as ctrl" class="ng-cloak">
+
+<form>
+	<input type="text" placeholder="Nombre" ng-model="ctrl.nombrePersona">
+	<br>
+	<input type="text" placeholder="Apellido" ng-model="ctrl.apellidoPersona">
+	<br>
+	<button ng-click="ctrl.mostrarNombreCompleto()">Crear nombre completo</button>
+	<p>{{ctrl.nombreCompleto}}</p>
+</form>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+	var app = angular.module("app", [])
+
+	app.controller("controlador", ["data", function(data){
+		this.nombrePersona = ""
+		this.apellidoPersona = ""
+		this.nombreCompleto = ""
+
+		this.mostrarNombreCompleto = function(){
+			data.nombre = this.nombrePersona
+			data.apellido = this.apellidoPersona
+			this.nombreCompleto = data.nombreCompleto()
+		}
+	}])
+
+	app.factory("data", [function(){
+		var obj = {}
+
+		obj.nombre = ""
+		obj.apellido = ""
+		obj.nombreCompleto = function(){
+			return this.nombre + " " + this.apellido
+		}
+
+		return obj
+	}])
+
+</script>
+
+</body>
+</html>

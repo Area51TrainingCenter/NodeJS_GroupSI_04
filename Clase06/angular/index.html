@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title></title>
+	<style>
+	.vacio {
+		color: red;
+	}
+
+	.novacio {
+		color: green;
+	}
+
+	[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	  display: none !important;
+	}
+	</style>
+</head>
+<body ng-controller="controlador as ctrl" class="ng-cloak">
+
+<h1>{{ctrl.nombre}}</h1>
+
+<input type="text" ng-model="ctrl.nombre">
+
+<div ng-hide="ctrl.matriculado">Esta matriculado</div>
+
+<form>
+	<input type="text" ng-model="ctrl.nuevoCurso">
+	<span ng-class="{vacio: (ctrl.nuevoCurso==''), novacio: (ctrl.nuevoCurso!='')}">necesario</span>
+	<br>
+	<button ng-click="ctrl.ingresarNuevoCurso()">Ingresar</button>
+</form>
+
+
+<ul>
+	<li ng-repeat="item in ctrl.cursos track by $index">
+		<a href ng-click="ctrl.eliminarCurso(item)">
+			{{$index + "-" + item}}
+		</a>
+	</li>
+	<li><strong>Total de cursos: {{ctrl.cursos.length}}</strong></li>
+</ul>
+
+<img ng-src="{{ctrl.imagenChica}}">
+
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+	var app = angular.module("app", [])
+
+	app.controller("controlador", [function(){
+
+		this.nombre = "Sergio"
+		this.matriculado = false
+		this.nuevoCurso = ""
+
+		this.imagenChica = "chica.jpg"
+
+		this.cursos = ["Angular2", "Phaser", "Babylon", "NodeJS"]
+
+		this.ingresarNuevoCurso = function(){
+			this.cursos.push(this.nuevoCurso)
+			this.nuevoCurso = ""
+		}
+
+		this.eliminarCurso = function(curso){
+			var posicion = this.cursos.indexOf(curso)
+			this.cursos.splice(posicion, 1)
+		}
+
+
+	}])
+
+</script>
+
+</body>
+</html>

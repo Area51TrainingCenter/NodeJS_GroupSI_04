@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script>
+	function Contabilidad() {
+		var contador = 0;
+
+		this.aumentar = function(){
+			contador++
+			return contador
+		}
+
+		this.total = function(){
+			contador+=3
+			return contador
+		}
+	}
+
+
+	var conta = new Contabilidad()
+
+	console.log("total",conta.total())
+	console.log("aumentar",conta.aumentar())
+
+
+	</script>
+
+</body>
+</html>

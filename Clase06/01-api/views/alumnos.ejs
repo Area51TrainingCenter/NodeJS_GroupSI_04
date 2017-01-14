@@ -1,3 +1,41 @@
-<ul>
-	<li ng-repeat="alumno in ctrl.alumnos">{{alumno.nombre}}</li>
-</ul>
+
+<div class="container">
+	<div class="row">
+		
+		<div class="col-md-4">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nombre</th>
+						<th>Acción</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="alumno in ctrl.alumnos">
+						<td>{{alumno.idUsuario}}</td>
+						<td>
+							<span ng-hide="alumno.editando">{{alumno.nombre}}</span>
+							<input type="text" ng-model="alumno.nombre" ng-show="alumno.editando">
+						</td>
+						<td>
+							<a href class="btn btn-info" ng-click="alumno.editando=true" ng-hide="alumno.editando">Editar</a>
+							<a href class="btn btn-success" ng-show="alumno.editando" ng-click="ctrl.actualizar(alumno)">Grabar</a>
+							<a href class="btn btn-danger" ng-click="ctrl.eliminar(alumno)">Eliminar</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>	
+		<div class="col-md-4">
+		<form>
+			<input type="text" ng-model="ctrl.nombre" placeholder="Alumno" class="form-control"><br>
+			<button class="btn btn-success" ng-click="ctrl.insertar(ctrl.nombre)">Insertar</button>
+		</form>
+
+
+		</div>
+
+
+	</div>
+</div>

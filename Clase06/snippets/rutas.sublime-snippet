@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+"get /${1:ruta base}": {
+	controller: "${2:nombre controlador}",	
+	action: "listar"
+},
+
+"get /${1:ruta base}/:pagina/:tamano": {
+	controller: "${2:nombre controlador}",	
+	action: "listarPaginado"
+},
+
+"get /${1:ruta base}/contar": {
+	controller: "${2:nombre controlador}",	
+	action: "contar"
+},
+
+"get /${1:ruta base}/:id": {
+	controller: "${2:nombre controlador}",	
+	action: "detallar"
+}
+
+"post /${1:ruta base}": {
+	controller: "${2:nombre controlador}",	
+	action: "insertar"	
+},
+
+"put /${1:ruta base}/:id": {
+	controller: "${2:nombre controlador}",	
+	action: "actualizar"	
+},
+
+"delete /${1:ruta base}/:id": {
+	controller: "${2:nombre controlador}",	
+	action: "eliminar"	
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>rutas</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

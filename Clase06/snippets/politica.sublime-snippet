@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+  ${1:modelo}Controller: {
+    '*': false,
+
+    listar: ['sessionAuth'],
+    listarPaginado: ['sessionAuth'],
+    contar: ['sessionAuth'],
+    detallar: ['sessionAuth'],
+    insertar: ['sessionAuth'],
+    actualizar: ['sessionAuth'],
+    eliminar: ['sessionAuth']
+  }
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>politica</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

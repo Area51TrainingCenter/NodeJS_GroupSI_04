@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+module.exports = {
+	tableName: "${1:nombre tabla}",
+	attributes: {
+		${2:id}: {
+			primaryKey: true,
+			unique: true,
+			autoIncrement: true,
+			type: "integer"
+		}
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>modelo</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,17 @@
+{
+  "name": "assets",
+  "homepage": "https://github.com/Area51TrainingCenter/NodeJS_GroupSI_04",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.6.1"
+  }
+}

@@ -6,6 +6,11 @@
  */
 
 var excel = require("msexcel-builder")
+var mailgun = require("mailgun-js")
+
+var apiKey = "pubkey-f3d74af8ef9c44d04ee9ad183bf9d5f3",
+	dominio = "sandboxebaecba4b1e841b582954f750a71bf99.mailgun.org"
+var enviador = mailgun({apiKey: apiKey, domain: dominio})	
 
 module.exports = {
 
@@ -89,7 +94,26 @@ module.exports = {
 			.catch(function(err){
 				res.negotiate(err)
 			})
+	},
+
+	enviarTexto: function(req, res, next){
+		var data = {
+			from: "shidalgo@tibajodemanda.com",
+			to: "sergiohidalgocaceres@gmail.com",
+			subject: "Correo de prueba",
+			text: "Este es un correo de prueba."
+		}
+
+		enviador.messages().send(data, function(err, body){
+			if(err){
+				res.negotiate(err)
+			} else {
+				res.send("Ok. El correo fue enviando.")
+			}
+		})
 	}
+
+
 	
 };
 

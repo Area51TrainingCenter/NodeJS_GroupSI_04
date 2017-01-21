@@ -54,7 +54,22 @@ module.exports.routes = {
   "get /crear": {
     controller: "ComprasController",
     action: "crear"
-  }
+  },
+
+  "get /enviar/texto": {
+    controller: "ComprasController",
+    action: "enviarTexto"
+  },
+
+  "get /enviar/html": {
+    controller: "ComprasController",
+    action: "enviarHTML"
+  },
+
+  "get /enviar/adjunto": {
+    controller: "ComprasController",
+    action: "enviarAdjunto"
+  }    
 
 
 

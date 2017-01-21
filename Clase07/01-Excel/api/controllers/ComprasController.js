@@ -8,7 +8,7 @@
 var excel = require("msexcel-builder")
 var mailgun = require("mailgun-js")
 
-var apiKey = "pubkey-f3d74af8ef9c44d04ee9ad183bf9d5f3",
+var apiKey = "key-5752542242109c4a7436ae9214823083",
 	dominio = "sandboxebaecba4b1e841b582954f750a71bf99.mailgun.org"
 var enviador = mailgun({apiKey: apiKey, domain: dominio})	
 
@@ -106,12 +106,50 @@ module.exports = {
 
 		enviador.messages().send(data, function(err, body){
 			if(err){
+				console.log("error desde mailgun")
 				res.negotiate(err)
 			} else {
 				res.send("Ok. El correo fue enviando.")
 			}
 		})
-	}
+	},
+
+	enviarHTML: function(req, res, next){
+		var data = {
+			from: "shidalgo@tibajodemanda.com",
+			to: "sergiohidalgocaceres@gmail.com",
+			subject: "Correo de prueba HTML",
+			html: "Este es un <strong>correo de prueba</strong> HTML."
+		}
+
+		enviador.messages().send(data, function(err, body){
+			if(err){
+				console.log("error desde mailgun")
+				res.negotiate(err)
+			} else {
+				res.send("Ok. El correo fue enviando.")
+			}
+		})
+	},
+
+	enviarAdjunto: function(req, res, next){
+		var data = {
+			from: "shidalgo@tibajodemanda.com",
+			to: "sergiohidalgocaceres@gmail.com",
+			subject: "Correo de prueba HTML con adjunto",
+			html: "Este es un <strong>correo de prueba</strong> HTML.",
+			attachment:["./misexcels/excel-generado.xlsx"]
+		}
+
+		enviador.messages().send(data, function(err, body){
+			if(err){
+				console.log("error desde mailgun")
+				res.negotiate(err)
+			} else {
+				res.send("Ok. El correo fue enviando.")
+			}
+		})
+	}	
 
 
 	

@@ -49,6 +49,15 @@ module.exports.routes = {
   "get /suscripcion": {
     controller: "MonitoreoController",
     action: "suscripcion"
+  },
+
+  "put /actualizar/:id":{
+    controller: "MonitoreoController",
+    action: "actualizar"
   }
+
+
+
+
 
 };

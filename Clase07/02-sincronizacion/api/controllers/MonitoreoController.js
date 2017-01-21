@@ -23,9 +23,23 @@ module.exports = {
 			.catch(function(err){
 				res.negotiate(err)
 			})
-	}
+	},
 
-	actualizar: function(){}
+	actualizar: function(req, res, next){
+		var filtro = {id: req.params.id}
+		var registro = req.allParams()
+
+		Monitoreo
+			.update(filtro, registro)
+			.then(function(registros){
+				Monitoreo.publishUpdate(registros[0].id, registros[0])
+				res.ok()
+			})
+			.catch(function(err){
+				res.negotiate(err)
+			})
+
+	}
 
 
 

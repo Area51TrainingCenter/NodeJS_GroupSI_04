@@ -1,0 +1,28 @@
+Listar app activas
+
+pm2 list
+
+Iniciar una app
+
+pm2 start <nombre app>
+
+Reiniciar una app
+
+pm2 restart <nombre app | id>
+
+Detener una app
+
+pm2 stop <nombre app | id>
+
+Eliminar una app
+
+pm2 delete <nombre app | id>
+
+Revisar logs
+
+pm2 logs <nombre app | id>
+
+Revisar el uso del cpu y la memoria
+
+pm2 monit
+

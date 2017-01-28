@@ -62,7 +62,9 @@ module.exports = {
 			.destroy()
 			.where(filtro)
 			.then(function(registros){
-				Monitoreo.publishDestroy(registros[0].id, req)
+				if(registros.length>0) {
+					Monitoreo.publishDestroy(registros[0].id, req)	
+				}
 				res.ok()
 			})
 			.catch(function(err){

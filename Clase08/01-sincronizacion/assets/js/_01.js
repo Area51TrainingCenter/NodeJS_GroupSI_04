@@ -37,6 +37,17 @@ app.controller("ambulancias", ["$scope", function($scope){
 						}
 					})
 					break
+				case "created":
+					self.lista.push(obj.data)
+					break
+				case "destroyed":
+					var ind = -1
+
+					self.lista.forEach(function(elem, indice){
+						if(elem.id == obj.id) ind = indice
+					})
+
+					self.lista.splice(ind, 1)
 			}
 		})
 	})

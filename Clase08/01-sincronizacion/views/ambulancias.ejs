@@ -1,1 +1,31 @@
-<h1>Lista de ambulancias</h1>
+<div class="container">
+	<div class="row">
+		
+		<h1>Lista de Ambulancias</h1>
+		<div ng-controller="ambulancias as ctrl" class="col-md-4">
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Médico</th>
+						<th>Piloto</th>
+						<th>Paramédico</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="ambulancia in ctrl.lista">
+						<td>{{ambulancia.id}}</td>
+						<td>{{ambulancia.medico}}</td>
+						<td>{{ambulancia.piloto}}</td>
+						<td>{{ambulancia.paramedico}}</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+		</div>
+	</div>
+</div>
+
+
